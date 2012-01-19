@@ -1,0 +1,294 @@
+/* Imports */
+@import url("reset.css");
+@import url("forms.css");
+@import url("table.css");
+
+body {
+	background: #ededed;
+	font-size: 87.5%; /* 14px */
+	font-family: 'Trebuchet MS', 'Helvetica', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	line-height: 1.429;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	color:#111111;
+}
+
+/* set values */
+h2 {font-size: 1.571em}	/* 22px */
+h3 {font-size: 1.429em}	/* 20px */
+h4 {font-size: 1.286em}	/* 18px */
+h5 {font-size: 1.143em}	/* 16px */
+h6 {font-size: 1em}	    /* 14px */
+
+h1 a{
+    text-decoration: none;
+}
+h2 {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: .8em;
+    font-weight: 400;
+	line-height: 1.1;
+}
+.header_profile {
+    border-bottom: 1px #f0f0f0 solid;
+    height: 23px;
+}
+h3, h4, h5, h6 {
+	font-weight: 400;
+	line-height: 1.1;
+}
+
+strong, b {font-weight: bold;}
+em, i {font-style: italic;}
+p {
+    margin-bottom: 5px;
+}
+
+/* box model */
+.boxed_top {
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.boxed_bottom {
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.boxed {
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    margin-bottom: 10px;
+}
+
+.blue_box {
+    background-color: #09347f;
+    color: #fff;
+}
+.blue_box a {
+    color: #ededed;
+}
+
+/* main layout */
+#layout{
+    margin:0px auto;
+	position:relative;
+	width: 960px;
+}
+
+/* header */
+#main_title {
+    font-size: 1.5em;
+    padding-left: 20px;
+    font-family: 'Helvetica', sans-serif;
+    float:left;
+}
+
+#profile {
+    font-size: 0.8em;
+    text-align: right;
+    padding-right: 10px;
+    float:right;
+    margin-top: 5px;
+}
+
+/* Content */
+#content {
+    font-size: 0.9em;
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 2px solid #d3d3d3;
+}
+a:hover{
+    text-decoration: none;
+}
+
+a.bluelink {
+    color: #09347f;
+    padding: 2px;
+}
+a.bluelink:hover {
+    color: #fff;
+    background-color: #09347f;
+    text-decoration: none;
+}
+
+a.bluelink:active {
+    color: #fff;
+    background-color: #09347f;
+    text-decoration: none;
+}
+#content h3 {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+/* Footer */
+#main_footer {
+    font-size: 0.8em;
+    height: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+}
+
+
+
+/* pagination */
+.pagination {
+    text-align: center;
+    margin-top: 10px; 
+}
+
+div.pagination a{
+    color: #000;
+    border: 1px solid black;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+.pagination a:visited{
+    color: grey;
+    border: 1px solid grey;
+}
+.pagination a.selected {
+    color: white;
+    border: 1px solid #09347f;
+    background-color: #09347f;
+}
+
+
+/* message box */
+.info, .success, .warning, .error, .validation {
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('/static/img/icons/info.png');
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('/static/img/icons/success.png');
+}
+.warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('/static/img/icons/warning.png');
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('/static/img/icons/error.png');
+}
+.validation {
+    color: #D63301;
+    background-color: #FFCCBA;
+    background-image: url('/static/img/icons/validation.png');
+}
+
+/* stuff */
+.gray {
+    color: lightgray;
+}
+
+.clearfloat {
+    clear:both;
+}
+
+.small {
+    font-size:.7em;
+}
+
+.list_no_deco {
+    list-style-type: none;
+}
+
+/* icons, not DRY ><*/
+.icon_www {
+    background: url(/static/img/icons/home_page.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_home {
+    background: url(/static/img/icons/house.png) top left no-repeat;
+    padding-left: 20px;
+}
+.icon_email {
+    background: url(/static/img/icons/email.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_company_add {
+    background: url(/static/img/icons/building_add.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_promotion {
+    background: url(/static/img/icons/medal_gold_3.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_silhouette {
+    background: url(/static/img/icons/user_silhouette.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_position {
+    background: url(/static/img/icons/cv.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_position_manage {
+    background: url(/static/img/icons/cv.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_twitter {
+    background: url(/static/img/icons/twitter.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_facebook {
+    background: url(/static/img/icons/facebook.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_linkedin {
+    background: url(/static/img/icons/linkedin.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_viadeo {
+    background: url(/static/img/icons/viadeo.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_account_edit {
+    background: url(/static/img/icons/user_edit.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_bookmarks {
+    background: url(/static/img/icons/star.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_tick {
+    background: url(/static/img/icons/tick.png) center left no-repeat;
+    padding-left: 20px;
+}
+.icon_card {
+    background: url(/static/img/icons/vcard.png) center left no-repeat;
+    padding-left: 20px;
+}
+
+.rules .demolink{
+    color: #09347f;
+}
+

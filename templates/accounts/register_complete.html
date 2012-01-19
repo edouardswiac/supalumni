@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+
+{% block profile %}{% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+<h2><span class="gray">Register //</span> <strong>step 2/2</strong></h2>
+<form method="post" action="">{% csrf_token %}
+    {%if form.errors %}
+    <div class="validation">
+    <ul>
+        {% for field in form %}
+        {% if field.errors %}
+        <li>{{field.label }} : {{ field.errors|striptags }}</li>
+        {% endif %}
+    	{% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+    
+    <p><strong>Campus ID #{{ pending_user.username }}</strong></p>
+    <ol>
+    {% for field in form %}
+        <li class="{%if field.errors %}field_error{%endif%}">
+            <label for="{{ field.name }}" {% if field.field.required %}class="field_required"{%endif%}>
+            {{ field.label}}{% if field.field.required %}<span class="field_required_star">*</span>{% endif %} <span class="help_text">{{ field.help_text }}</span>
+            </label> 
+            {{ field }}
+        </li>
+      {% endfor %}
+      <li class="buttons">
+        <button name="tick" type="submit" value="register">Register</button>
+      </li>
+    </ol>
+</form>
+{% endblock %}

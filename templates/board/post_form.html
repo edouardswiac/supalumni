@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Annonce</h2>
+  {%if form.errors %}
+  <div class="validation">
+    <ul>
+  	{% for field in form %}
+  	  {% if field.errors %}
+  	    <li>{{field.label }} : {{ field.errors|striptags }}</li>
+  	    {% endif %}
+  	{% endfor %}
+  	</ul>
+  </div>
+  {% endif %}
+
+<form class="cmxform" method="post" action="">
+    <fieldset>
+        <div style="float:left">
+            <ol>
+            {% for field in form.visible_fields %}
+                <li class="row{% if field.errors %} field_error{% endif %}">{{ field.label_tag }} {{ field }}</li>
+            {% endfor %}
+                <li class="row"><button type="submit">Valider</button></li>
+            </ol>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

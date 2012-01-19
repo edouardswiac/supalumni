@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>Board</h2>
+<div>
+<span><a href="{% url board_post_create %}">Ajouter une annonce</a></span>
+| <span><a href="{% url board_post_manage %}">Gérer vos annonces</a></span>
+</div>
+<table id="search_table" class="clickable">
+		<tbody>
+		  {% for post in object_list %}
+        <tr class="{% cycle '' 'odd' %}">
+  				<td><a href="{% url supalumni.board.views.post_detail post.id %}">{{ post.title }} - le {{ post.date_posted|date:"SHORT_DATETIME_FORMAT"}}</td>
+  			</tr>
+      {% endfor %}
+		</tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2><span class="gray">{{ request.user.get_full_name }} //</span> <strong>manage positions</strong></h2>
+
+    {% if object_list %}
+    
+    <table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 30%">Title</th>
+            <th scope="col" style="width: 30%">Company</th>
+            <th scope="col" style="width: 30%">Time</th>
+            <th scope="col" style="width: 5%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for position in object_list %}  
+        <tr>
+            <td>{{ position.title }}</td>
+            <td><a href="{% url companies-detail position.company.id %}"><span style="background: url('{{ position.company.address.country.flag }}') center left no-repeat; padding-left: 20px" /> {{ position.company.name }}</a></td>
+            {% if position.date_end %}
+            <td>from {{ position.date_start|date:"F Y" }} to {{ position.date_end|date:"F Y" }}</td>    
+            {% else %}
+            <td>since {{ position.date_start|date:"F Y" }}</td>
+            {% endif %}
+            <td>
+                <form method="post" action="{% url companies-positions-delete %}">{% csrf_token %}
+                <span class="buttons">
+                    <button class="negative" name="delete" type="submit" value="{{ position.id }}">Delete</button>
+                </span>
+            </td>        
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+    {% else %}
+        <div class="warning">You don't have positions.</div>
+    {% endif%} 
+
+{% endblock %}

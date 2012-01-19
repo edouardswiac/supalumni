@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2><span class="gray">{{ request.user.get_full_name}} //</span> <strong>update</strong></h2>
+<p>All the fields are optionals. Leave blank to ignore.</p>
+<form method="post" action="">{% csrf_token %}
+    {%if form.errors %}
+    <div class="validation">
+      <ul>
+    	{% for field in form %}
+    	  {% if field.errors %}
+    	    <li>{{field.label }} : {{ field.errors|striptags }}</li>
+    	    {% endif %}
+    	{% endfor %}
+    	</ul>
+    </div>
+    {% endif %}
+
+    <ol>
+      {% for field in form %}
+      <li class="{%if field.errors %}field_error{%endif%}">
+        <label for="{{ field.name }}" {% if field.field.required %}class="field_required"{%endif%}>
+            {{ field.label}}{% if field.field.required %}<span class="field_required_star">*</span>{% endif %} 
+            {% if field.help_text %}<span class="help_text">{{ field.help_text }}</span>{% endif %}
+        </label> 
+        {{ field }}
+        </li>
+      {% endfor %}
+      <li class="buttons">
+        <button class="positive" name="tick" type="submit" >Save</button>
+      </li>
+    </ol>
+</form>
+{% endblock %}

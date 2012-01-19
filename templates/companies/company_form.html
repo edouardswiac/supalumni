@@ -1,0 +1,66 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h2><span class="gray">Companies //</span> <strong>add</strong></h2>
+<form method="post" action="" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+    {%if form.errors or address_form.errors %}
+    <div class="validation">
+    {{ form.non_field_errors }}
+    {{ address_form.non_field_errors }}
+    <ul>
+    {% for field in form %}
+        {% if field.errors %}
+            <li>{{field.label }} : {{ field.errors|striptags }}</li>
+        {% endif %}
+    {% endfor %}
+    
+    {% for field in address_form %}
+        {% if field.errors %}
+            <li>{{field.label }} : {{ field.errors|striptags }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+    {% else %}
+    <div class="info">Please complete the following informations to create a new company entry. Note that once created you cannot edit these informations. If you need to, please <a href="mailto:supalumni.net@gmail.com">contact us</a> with the updated informations.
+    </div>
+    {% endif %}
+    
+    <fieldset>
+        <div>
+            <ul class="list_no_deco">
+            {% for field in form %}
+                <li class="{%if field.errors %}field_error{%endif%}">
+                    <label for="{{ field.name }}" {% if field.field.required %}class="field_required"{%endif%}>
+                    {{ field.label}}{% if field.field.required %}<span class="field_required_star">*</span>{% endif %}
+                    </label> 
+                    {{ field }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <div>
+            <ul class="list_no_deco">
+            {% for field in address_form %}
+                <li class="{%if field.errors %}field_error{%endif%}">
+                    <label for="{{ field.name }}" {% if field.field.required %}class="field_required"{%endif%}>
+                    {{ field.label}}{% if field.field.required %}<span class="field_required_star">*</span>{% endif %}
+                    </label> 
+                    {{ field }}
+                </li>
+            {% endfor %}
+                <li class="buttons">
+                    <button name="add" type="submit" class="positive" value="">Add company</button>
+                </li>           
+            </ul>
+        </div>
+    </fieldset>
+    
+    <div style="clear:both"></div>
+    
+</form>
+{%endblock%}
+

@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% load profile_tags %}
+
+{% block content %}
+<h2><span class="gray">{{ request.user.get_full_name}} //</span> <strong>bookmarks</strong></h2>
+
+{% if object_list %}
+<table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width:30%">Name</th>
+            <th scope="col" style="width:30%">Promotion</th>
+            <th scope="col" style="width:30%">Company</th>
+            <th scope="col" style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for bookmark in object_list %}
+        <tr>
+            <td><a class="bluelink" href="{% url profiles-detail bookmark.to_profile.id_booster %}">{{ bookmark.to_profile.user.last_name }} {{ bookmark.to_profile.user.first_name}}</td>
+            <td>{{ bookmark.to_profile.promotion }}</td>
+            <td>
+                <span style="background: url('{{ positions|get_company_flag:bookmark.to_profile.id_booster }}') center left no-repeat; padding-left: 20px">{{ positions|get_company_name:bookmark.to_profile.id_booster }}</span>
+            </td>
+            <td>
+                <form method="post" action="{% url accounts-bookmarks-delete %}">{% csrf_token %}
+                <span class="buttons">
+                    <button class="negative" name="delete" type="submit" value="{{ bookmark.id }}">Delete</button>
+                </span>
+            </td>   
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="warning">You don't have bookmarks. Add bookmarks by clicking "Bookmark profile" on a profile page.</div>
+{% endif %}
+
+{% endblock %}
+

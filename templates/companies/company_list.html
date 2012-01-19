@@ -1,0 +1,37 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2><span class="gray">Companies //</span> <strong>alphabetical</strong></h2>
+
+<div class="pagination">
+
+{% if companies_for_filter %}
+    {% regroup companies_for_filter by first_letter as letter_list %}
+    {%for letter_ in letter_list%}
+    <a {%if first_letter_in == letter_.grouper|lower%}class="selected"{%endif%} href="{% url companies-list-alphabetical letter_.grouper|lower %}">{{ letter_.grouper|upper }} <sup class="small">{{letter_.list|length }}</sup></a>
+    {% endfor %}
+{% endif %}
+</div>
+
+{% if object_list %}
+<table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 50%">Name</th>
+            <th scope="col" style="width: 50%">Location</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for company in object_list %}
+    <tr>
+        <td><a class="bluelink" href="{% url companies-detail company.id %}">{{ company.name }}</a></td>
+        <td><span style="background: url('{{ company.address.country.flag }}') center left no-repeat; padding-left: 20px" /> {{ company.address.city }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% if not object_list %}
+<div class="info">Please refine your search.</div>
+{% endif %}
+{% endblock %}

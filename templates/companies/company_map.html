@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+
+{%block meta_maps %}<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />{% endblock %}
+{%block body_map_load%}onload="initialize_map()"{% endblock %}
+
+{% block content %}
+<h2><span class="gray">Companies //</span> <strong>map</strong></h2>
+
+<div id="map_canvas" style="width:100%;height: 500px;"></div>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0/src/markerclusterer_packed.js"></script>
+<script type="text/javascript">
+  var companies = {{ company_markers|safe }};
+  var map;
+  var france = new google.maps.LatLng(47, 3);
+
+  function initialize_map() {
+    var myOptions = {
+      zoom: 6,
+      center: france,
+      //disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    var markers = []
+    for (var i = 0; i < companies.length; i++) {
+      var marker = create_marker(companies[i]);
+      markers.push(marker)
+    }
+    var markerCluster = new MarkerClusterer(map, markers);
+  }
+  
+  function create_marker(company) {
+    var lat_lng = new google.maps.LatLng(company.lat, company.lng);
+    
+    var marker = new google.maps.Marker({
+        position: lat_lng, 
+        map: map,
+        title: company.name
+    });
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: create_anchor(company.name, company.url),
+    });
+    
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+    return marker
+  }
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+#data_table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#data_table tbody {
+}
+
+#data_table th {
+	font-size: 1.2em;
+	font-weight: normal;
+	padding: 5px 5px;
+	border-bottom: 2px solid #d3d3d3;
+	background-color: #f0f0f0;
+}
+
+#data_table td{
+    padding: 5px;
+}
+#data_table.clickable tbody tr {
+    cursor: pointer;
+}
+
+#data_table tbody tr a {
+    text-decoration: none;
+}
+tbody tr a:hover {
+
+}
+
+.odd {
+    background-color: #f0f0f0;
+}
+
+.even {
+    background-color: #ffffff;
+}
+.highlight {
+    background-color: #F7F9D0;
+    
+}

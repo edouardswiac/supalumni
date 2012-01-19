@@ -1,0 +1,50 @@
+{% extends "base_generic.html" %}
+{% load profile_tags %}
+{% block content %}
+<h2><span class="gray">Profiles //</span> <strong>{% if alpha%}alphabetical{%else%}promotion{%endif%}</strong></h2>
+
+<div class="pagination">
+{% if alpha%}
+{% regroup profiles_for_filter by first_letter as letter_list %}
+    {%for letter in letter_list%}
+    <a {%if first_letter == letter.grouper|lower%}class="selected" {%endif%}href="{% url profiles-list-alphabetical letter.grouper|lower%}">{{ letter.grouper|upper }} <sup class="small">{{letter.list|length }}</sup></a>
+    {% endfor %}
+{% endif %}
+
+
+{% if promo %}
+    {% regroup profiles_for_filter by promotion as promo_list %}
+    {%for promo in promo_list%}
+    <a {%if promotion == promo.grouper%}class="selected" {%endif%}href="{% url profiles-list-promotions promo.grouper%}">{{ promo.grouper }} <sup class="small">{{promo.list|length}}</sup></a>
+    {% endfor %}
+{% endif %}
+</div>
+
+{% if object_list  %}
+<table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 33%">Name</th>
+            <th scope="col" style="width: 33%">Promotion</th>
+            <th scope="col" style="width: 33%">Company</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for profile in object_list %}
+        <tr class="{% cycle '' 'odd' %}">
+            <td><a class="bluelink"href="{% url profiles-detail profile.id_booster %}">{{ profile.user.last_name }} {{ profile.user.first_name}}</td>
+            <td>{{ profile.promotion }}</td>
+            <td>
+                <span style="background: url('{{ positions|get_company_flag:profile.id_booster }}') center left no-repeat; padding-left: 20px">{{ positions|get_company_name:profile.id_booster }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if not object_list %}
+<div class="info">Please refine your search.</div>
+{% endif %}
+{% endblock %}
+

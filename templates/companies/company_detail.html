@@ -1,0 +1,82 @@
+{% extends "base_generic.html" %}
+
+{%block meta_maps %}<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />{% endblock %}
+{%block body_map_load%}onload="initialize_map()"{% endblock %}
+
+{% block content %}
+<h2><span class="gray">Companies //</span> <strong>{{object.name}}</strong></h2>
+
+<div style="float:left">
+    {% if object.website %}
+    <p class="icon_www"><a class="bluelink" href="{{object.website}}">{{ object.website }}</a></p>
+    {% endif %}
+    <p>
+        <span style="padding-left: 20px; background: url('{{ object.address.country.flag }}') center left no-repeat;">{{ object.address.street1 }}</span><br />
+            {% if object.address.street2 %}
+            <span style="padding-left:20px;">{{ object.address.street2 }}</span><br />
+            {% endif %}
+            
+            <span style="padding-left:20px;">{{ object.address.zipcode }} {{ object.address.city }}</span>
+    </p>
+
+</div>
+
+<div id="map_canvas" style="float:right; width: 400px; height:200px"></div>
+
+<div style="clear:both"></div>
+
+<h3>Who's been there ?</h3>
+{% if positions %}
+<table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 33%"></th>
+            <th scope="col" style="width: 33%">User</th>
+            <th scope="col" style="width: 33%">Position</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for position in positions %}
+        <tr>
+            <td>
+                {% if position.date_end %}
+                    {{ position.date_start|date:"F Y" }} to {{ position.date_end|date:"F Y" }}
+                {% else %}
+                    Since  {{ position.date_start|date:"F Y" }}
+                {% endif %}
+            </td>
+            <td><a class="bluelink" href="{% url profiles-detail position.profile.id_booster %}">{{ position.profile.user.get_full_name}}</a></td>
+            <td>{{ position.title }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Nobody is currently holding a position at this company</p>
+{% endif %}
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+  var map;
+  var company = {{ company_json|safe }}
+  var origin = new google.maps.LatLng(company.lat, company.lng);
+  function initialize_map() {
+    var myOptions = {
+      zoom: 15,
+      center: origin,
+      //disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    
+    var lat_lng = new google.maps.LatLng(company.lat, company.lng);
+    
+    var marker = new google.maps.Marker({
+        position: lat_lng, 
+        map: map,
+        title: company.name
+    });    
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,96 @@
+.homepage_box_left {
+    background-color:#9c9;
+    float:left;
+}
+.homepage_box_right {
+    background-color:#9c9;
+    float:right;
+}
+
+.bigbox {
+    border: 5px solid #d3d3d3;
+    padding: 5px 10px;
+    background-color: #fff;
+}
+.bigbox a {
+    color: #09347f;
+    padding: 2px;
+}
+.bigbox a:hover {
+    color: #fff;
+    background-color: #09347f;
+    text-decoration: none;
+}
+.box {
+    font-size: 0.9em;
+    border: 5px solid #d3d3d3;
+    width: 46%;
+    padding: 5px 10px 20px 10px;
+    background-color: #fff;
+}
+
+.clear {
+    clear:both;
+}
+
+#wrap {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.box h3 {
+ padding-left: 10px; 
+ padding-top: 5px;  
+}
+
+form.login fieldset {
+    padding:10px 30px;
+    margin-top: 10px;
+    border:1px solid #f0f0f0;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+form.login li {
+    list-style-type: none;
+    padding-bottom: 1em;
+}
+
+form.login label {
+    display:block;
+}
+
+form.login li.buttons {
+    text-align: center;
+}
+
+
+/* validation */
+.validation {
+    color: #D63301;
+    background-color: #FFCCBA;
+    background-image: url('/static/img/icons/validation.png');
+    background-repeat: none;
+    padding-left: 70px;
+}
+.validation ul {
+    margin: 0px;
+}
+
+.validation li {
+    list-style-type: none;
+}
+
+.field_error input, 
+.field_error select, 
+.field_error textarea{
+    border-color: #D63301;
+}
+
+.sign_in #id_id_booster, .sign_in #id_password {
+    width:125px;
+}
+.sign_up #id_id_booster {
+    width: 270px;
+}

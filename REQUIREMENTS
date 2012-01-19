@@ -1,0 +1,7 @@
+django==1.2.4
+django-countries==1.0.5
+django-tinymce==1.5.1a1
+simplejson==2.1.2
+path.py>=2
+egenix-mx-base>=3
+psycopg2>=2.3

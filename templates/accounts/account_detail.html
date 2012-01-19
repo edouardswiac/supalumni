@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2><span class="gray">{{ user.get_full_name }} //</span> <strong>account</strong></h2>
+
+<p class="icon_account_edit"><a class="bluelink" href="{% url accounts-update %}">Edit personal informations</a></p>
+
+<h3>Companies</h3>
+<p class="icon_company_add"><a class="bluelink" href="{% url companies-add %}">Add a company</a></p>
+
+<h3>Positions</h3>
+<p class="icon_position"><a class="bluelink" href="{% url companies-positions-add %}">Add a position</a></p>
+<p class="icon_position"><a class="bluelink" href="{% url companies-positions-manage %}">Manage positions</a></p>
+
+<h3>Bookmarks</h3>
+<p class="icon_bookmarks"><a class="bluelink" href="{% url accounts-bookmarks-list %}">Manage bookmarks</a></p>
+
+{% endblock %}

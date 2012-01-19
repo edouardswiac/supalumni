@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h2><span class="gray">{{ request.user.get_full_name}} //</span> <strong>add a position</strong></h2>
+<form method="post" action="" >{% csrf_token %}
+    {%if form.errors or address_form.errors %}
+    <div class="validation">
+    {{ form.non_field_errors }}
+    {{ address_form.non_field_errors }}
+    <ul>
+    {% for field in form %}
+        {% if field.errors %}
+            <li>{{field.label }} : {{ field.errors|striptags }}</li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+    </div>
+    {% else %}
+    <div class="info">Please complete the following informations to create a former or current position. 
+    <a href="{% url companies-add %}">Add the company</a> if it's not present in our directory</div>
+    {% endif %}
+    
+    <fieldset>
+        <div>
+            <ol>
+            {% for field in form %}
+                <li class="{%if field.errors %}field_error{%endif%}">
+                    <label for="{{ field.name }}" {% if field.field.required %}class="field_required"{%endif%}>
+                    {{ field.label}}{% if field.field.required %}<span class="field_required_star">*</span>{% endif %}
+                    </label> 
+                    {{ field }} <span class="help_text">{{ field.help_text }}</span>
+                </li>
+            {% endfor %}
+                <li class="buttons">
+                    <button name="add" type="submit" class="positive" value="">Add position</button>
+                </li>
+            </ol>
+        </div>
+        
+    </fieldset>    
+</form>
+{%endblock%}
+

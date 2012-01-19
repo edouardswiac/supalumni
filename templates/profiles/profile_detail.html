@@ -1,0 +1,86 @@
+{% extends "base_generic.html" %}
+{% load profile_tags %}
+
+{% block content %}
+<h2><span class="gray">Profiles //</span> <strong>{{ object.user.get_full_name }}</strong></h2>
+
+    
+<div>
+    <div id="picture_frame" style="float:right">
+        <img style="border:1px solid gray; margin-top: 5px; max-width: 160px;" src="{{object.id_booster|get_picture_url}}" />
+    </div>
+    
+        {% if is_bookmarked %}
+        <p class="buttons"><button class="neutral" style="width: 160px" name="bookmark" type="submit" >Bookmarked</button></p>
+        {% endif %}
+        {% if request.user.profile.id_booster != object.id_booster and not is_bookmarked%}
+        <form method="get" action="{% url accounts-bookmarks-add object.id_booster %}">
+            <p class="buttons"><button class="positive" style="width: 160px" name="add" type="submit" >Bookmark profile</button></p>
+        </form>        
+        {% endif %}
+        
+    <p class="icon_promotion">{{ object.promotion }}</p>
+    
+    <p class="icon_email">
+    <a class="bluelink" href="mailto:{{ object.id_booster }}@supinfo.com?subject=Contact from SUPINFO Alumni Network">{{ object.id_booster }}@supinfo.com</a>
+    </p>
+    
+    {% if object.website_url %}
+    <p class="icon_www"><a class="bluelink" href="{{ object.website_url }}">{{ object.website_url }}</a></p>
+    {% endif %}
+    
+    {% if object.linkedin_url %}
+    <p class="icon_linkedin"><a class="bluelink" href="{{ object.linkedin_url }}">{{ object.linkedin_url }}</a></p>
+    {% endif %}
+    
+    {% if object.viadeo_url %}
+    <p class="icon_viadeo"><a class="bluelink" href="{{ object.viadeo_url }}">{{ object.viadeo_url }}</a></p>
+    {% endif %}
+    
+    {% if object.facebook_url %}
+    <p class="icon_facebook"><a class="bluelink" href="{{ object.facebook_url }}">{{ object.facebook_url }}</a></p>
+    {% endif %}
+    
+    {% if object.twitter_url %}
+    <p class="icon_twitter"><a class="bluelink" href="{{ object.twitter_url }}">{{ object.twitter_url }}</a></p>
+    {% endif %}
+    
+    <br />
+    {% if object.description %}
+    <h3>About me</h4>
+    <div>{{ object.description|safe }}</div>
+    {% endif %}
+    
+    <div class="clearfloat"></div>
+    
+    <h3>Professional history</h3>
+    {% if positions %}
+    <table id="data_table" class="clickable">
+    <thead>
+        <tr>
+            <th scope="col" style="width: 33%"></th>
+            <th scope="col" style="width: 33%">Position</th>
+            <th scope="col" style="width: 33%">Company</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for position in positions %}
+        <tr>
+            <td>
+            {% if position.date_end %}
+            from {{ position.date_start|date:"F Y" }} to {{ position.date_end|date:"F Y" }}    
+            {% else %}
+            since {{ position.date_start|date:"F Y" }}   
+            {% endif %}
+            </td>
+            <td>{{ position.title }}</td>
+            <td><a class="bluelink" href="{% url companies-detail position.company.id %}"><span style="background: url('{{ position.company.address.country.flag }}') center left no-repeat; padding-left: 20px" /> {{ position.company.name }}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <div class="info">This user has not specified any position.</div>
+    {% endif%} 
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<div>
+  <p>{{ post.content }}</p>
+  <hr />
+  <p>par: <a href="{% url users_profile post.author_id %}">{{ post.author.get_full_name }}</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{%block content%}
+<h2>Create an address</h2>
+<form method="post" action="" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+  
+  {%if form.errors%}
+  <div class="validation">
+    <ul>
+  	{% for field in form %}
+  	  {% if field.errors %}
+  	    <li>{{field.label }} : {{ field.errors|striptags }}</li>
+  	    {% endif %}
+  	{% endfor %}
+  	</ul>
+  </div>
+  {% else %}
+  <div class="info">Please complete the following informations to create a new address entry. Note that you cannot edit these informations once created. 
+	  If you need to, please contact us with the updated informations.
+    </div>
+  {% endif %}
+  
+  <ol>
+    {% for field in form %}
+    <li class="{%if field.errors %}field_error{%endif%}">{{ field.label_tag}} {{ field }}</li>
+    {% endfor %}
+
+    {% for field in address_form %}
+    <li class="{%if field.errors %}field_error{%endif%}">{{ field.label_tag}} {{ field }}</li>
+    {% endfor %}
+    <li class="buttons">
+    	<button name="address_add" type="submit">{{ submit_name }}</button>
+    </li>
+  </ol>
+
+</form>
+{%endblock%}
+
+

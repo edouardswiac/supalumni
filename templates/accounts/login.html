@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+        <meta name="description" content="Private network where SUPINFO alumni gather.">
+        <meta name="author" content="Edouard SWIAC">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <link rel="shortcut icon" href="/static/favicon.ico">
+	<title>{%if debug %}[DEBUG]{% endif %}{% block title %}SUPINFO Alumni Network{% endblock %}</title>
+	<link href="/static/css/style.css" rel="stylesheet" />
+	<link href="/static/css/login.css" rel="stylesheet" />
+    {{ form.media }}
+</head>
+<body>
+<section id="layout">
+
+<header id="main_header" class="blue_box boxed_bottom" style="line-height: 2em; height: 2em; {%if debug %}background-color: #F00{%endif%}">
+    <h1 id="main_title" ><a href="/">SUPINFO Alumni Network</a></h1>
+</header>
+
+<section>
+{% block homepage %}
+<div class="bigbox boxed_top boxed_bottom">
+    This network is private. A valid SUPINFO Campus ID is required to join.
+</div>
+
+<div class="box homepage_box_left boxed_top boxed_bottom">
+    <h3>Register</h3>
+    {%if register_form.errors %}
+    <div class="validation">
+        <ul>
+        {% for field in register_form %}
+            {% if field.errors %}
+            <li>{{field.label }} : {{ field.errors|striptags }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    
+    <form class="login sign_up" method="post" action="">{% csrf_token %}
+    <fieldset>
+        <span class="{%if register_form.id_booster.errors %}field_error{%endif%}">
+            <label>{{ register_form.id_booster.label }}</label>
+            {{ register_form.id_booster}}
+        </span>    
+
+        <span class="buttons">
+            <button name="sign_up" type="submit" value="register">Register</button>
+        </span>
+    </fieldset>
+    </form>
+</div>
+
+<div class="box homepage_box_right boxed_bottom boxed_top">
+    <h3>Login</h3>
+    {%if login_form.errors %}
+    <div class="validation">
+        <ul>
+        {% for field in login_form %}
+            {% if field.errors %}
+            <li>{{field.label }} : {{ field.errors|striptags }}</li>
+            {% endif %}
+        {% endfor %}
+            <li>{{ login_form.non_field_errors|join:", " }}</li>
+        </ul>
+    </div>
+    {% endif %}
+    
+    <form class="login sign_in" method="post" action="">{% csrf_token %}
+    <fieldset>
+        <div style="float:left; margin-right: 10px;"class="{%if login_form.id_booster.errors %}field_error{%endif%}">
+            <label>{{ login_form.id_booster.label }}</label>
+            {{ login_form.id_booster}}
+        </div>    
+        
+        <span class="{%if login_form.password.errors %}field_error{%endif%}">
+            <label>{{ login_form.password.label }}</label>
+            {{ login_form.password}}
+        </span>  
+    
+        <span class="buttons">
+            <button name="sign_in" type="submit"  value="login">Login</button>
+        </span>
+    </fieldset>
+    </form>
+</div>
+
+<div class="clearfloat"></div>
+
+<div class="bigbox boxed_top boxed_bottom" style="text-align: center; font-size: .8em">
+    <a href="{% url accounts-forgot-password1 %}">Forgot your password?</a>
+</div>
+{% endblock%}
+{% block content %}
+
+{% endblock %}
+</section>
+
+<footer id="main_footer" class="clear blue_box boxed_top boxed_bottom">
+    <p>2011 | <a href="mailto:edouard.swiac@supinfo.com">Contact</a>
+    | This website is a student initiative, and is not endorsed by SUPINFO International University.
+    | <a href="https://twitter.com/supalumni">@supalumni</a>
+    </p>
+
+</footer>
+    
+</section>
+<script type="text/javascript">
+        var _gaq = [['_setAccount', 'UA-12643241-2'], ['_trackPageview']];
+        (function(d, t) {
+        var g = d.createElement(t),s = d.getElementsByTagName(t)[0];
+        g.async = true;
+        g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s);
+        })(document, 'script');
+</script>
+
+</body>
+</html>

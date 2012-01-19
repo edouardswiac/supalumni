@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Private network where SUPINFO alumni gather.">
+	<meta name="author" content="Edouard SWIAC">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="shortcut icon" href="/static/favicon.ico">	
+	<title>{%if debug %}[DEBUG]{% endif %}{% block title %} SUPINFO Alumni Network {% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/menu.css" media="screen"> 
+    {% block meta_maps %}{% endblock%}
+    {{ form.media }}
+</head>
+
+<body {% block body_map_load%}{%endblock%}>
+<section id="layout">
+<header id="main_header" class="blue_box boxed_bottom" {%if debug %}style="background-color: #F00"{%endif%}>
+    <h1 id="main_title"><a href="/">SUPINFO Alumni Network</a></h1>
+    
+    <div id="profile">
+        {% block profile %}
+        {{ user.first_name }} <strong>{{ user.last_name}}</strong> 
+        | #<a href="{% url profiles-detail user.username %}">{{ user.username}}</a>
+        | <a href="{% url accounts-detail %}">account</a>
+        | <a href="{% url accounts-bookmarks-list %}">bookmarks</a>
+        | <a href="{% url accounts-logout %}">logout</a>
+        {% endblock %}
+    </div>
+    
+    <div class="clearfloat"></div>
+    {% block nav %}
+    <nav id="main_menu">
+    <ul class="dropdown">
+    
+    <li>
+        <a href="#">Profile directory</a>
+        <ul>
+            <li><a class="icon_alpha" href="{% url profiles-list-alphabetical %}">Alphabetical</a></li>
+            <li><a class="icon_promotion" href="{% url profiles-list-promotions %}">Promotion</a></li>
+        </ul>
+    </li>
+    
+    <li>
+        <a href="#">Company directory</a>
+        <ul>
+            <li><a class="icon_alpha" href="{% url companies-list-alphabetical %}">Alphabetical</a></li>
+            <li><a class="icon_map" href="{% url companies-list-map %}">Map</a></li>
+        </ul>
+    </li>
+    
+    <li>
+        <a href="http://www.supforum.net/">Supforum</a>
+    </li>
+    
+    </ul>  
+    </nav>
+    
+    <div class="clearfloat"></div>
+    {% endblock %}
+</header>
+
+<section id="content" class="boxed_top boxed_bottom">
+    
+    {% block content %}{% endblock %}
+
+    {% if is_paginated %}
+    <div class="pagination">
+        {% if has_previous %}
+        <a href="?{{queries.urlencode}}&amp;page={{ previous}}">&laquo;</a>
+        {% endif%}
+        
+        {% for page_number in page_range %}
+        <a {%if page_number == page%}class="selected"{%endif%} href="?{{queries.urlencode}}&amp;page={{page_number}}" >{{ page_number }}</a>
+        {%endfor%}
+        
+        {% if has_next %}
+        <a href="?{{queries.urlencode}}&amp;page={{ next }}">&raquo;</a>
+        {% endif%}
+    </div>
+    {% endif %}
+</section>
+
+<footer id="main_footer" class="clear blue_box boxed_top boxed_bottom">
+    <p>2011 | <a href="mailto:edouard.swiac[at]supinfo.com">Contact</a>
+    | This website is a student initiative, and is not endorsed by SUPINFO International University.
+    | <a href="https://twitter.com/supalumni">@supalumni</a>
+</footer>
+
+</section>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.dropdownPlain.js"></script> 
+<script type="text/javascript">
+    function create_anchor(name, url) {
+        var a = '<a href="'+url+'">'+name+'</a>';
+        return a;
+    }
+    
+    $('.clickable tbody tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+    
+    $(".clickable tbody tr:odd").addClass("odd");
+    $(".clickable tbody tr:even").addClass("even");
+    
+    $(".clickable tbody tr").hover(function(){
+        $(this).addClass("highlight");
+        }, function() {
+        $(this).removeClass("highlight");
+    });
+</script>
+<script type="text/javascript">
+	var _gaq = [['_setAccount', 'UA-12643241-2'], ['_trackPageview']];
+	(function(d, t) {
+	var g = d.createElement(t),s = d.getElementsByTagName(t)[0];
+	g.async = true;
+	g.src = ('https:' == location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g, s);
+	})(document, 'script');
+</script>
+</body>
+</html>
